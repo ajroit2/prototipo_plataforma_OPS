@@ -1,0 +1,1689 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plataforma Regulatoria - Ensayos Clínicos América</title>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <!-- Added Google Fonts for modern typography -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <!-- Added Font Awesome for modern icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            /* Modern color palette with CSS custom properties */
+            --primary-blue: #2563eb;
+            --primary-blue-dark: #1d4ed8;
+            --primary-blue-light: #3b82f6;
+            --secondary-blue: #1e40af;
+            --accent-teal: #0d9488;
+            --accent-emerald: #059669;
+            --neutral-50: #f8fafc;
+            --neutral-100: #f1f5f9;
+            --neutral-200: #e2e8f0;
+            --neutral-300: #cbd5e1;
+            --neutral-400: #94a3b8;
+            --neutral-500: #64748b;
+            --neutral-600: #475569;
+            --neutral-700: #334155;
+            --neutral-800: #1e293b;
+            --neutral-900: #0f172a;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --error: #ef4444;
+            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+            --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+            --border-radius: 12px;
+            --border-radius-sm: 8px;
+            --border-radius-lg: 16px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            /* Modern font stack and improved typography */
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, var(--neutral-50) 0%, var(--neutral-100) 100%);
+            min-height: 100vh;
+            color: var(--neutral-800);
+            line-height: 1.6;
+            font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* Enhanced institutional header with modern glassmorphism effect */
+        .institutional-header {
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--secondary-blue) 100%);
+            backdrop-filter: blur(20px);
+            color: white;
+            padding: 16px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: var(--shadow-lg);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .institutional-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .institutional-header .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .institutional-logo {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            font-size: 1.125rem;
+            font-weight: 600;
+            transition: transform 0.3s ease;
+        }
+
+        .institutional-logo:hover {
+            transform: translateY(-2px);
+        }
+
+        .institutional-logo .logo-icon {
+            width: 48px;
+            height: 48px;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: white;
+            transition: all 0.3s ease;
+        }
+
+        .institutional-logo .logo-icon:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: rotate(5deg) scale(1.05);
+        }
+
+        .institutional-nav {
+            display: flex;
+            gap: 32px;
+            font-size: 0.95rem;
+            font-weight: 500;
+        }
+
+        .institutional-nav a {
+            color: rgba(255, 255, 255, 0.9);
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: var(--border-radius-sm);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .institutional-nav a::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .institutional-nav a:hover {
+            color: white;
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .institutional-nav a:hover::before {
+            left: 100%;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 24px;
+        }
+
+        /* Modern hero header with enhanced visual hierarchy */
+        .header {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.7) 100%);
+            backdrop-filter: blur(20px);
+            text-align: center;
+            margin-bottom: 32px;
+            padding: 80px 48px;
+            border-radius: var(--border-radius-lg);
+            box-shadow: var(--shadow-xl);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-blue), var(--accent-teal), var(--accent-emerald));
+            border-radius: var(--border-radius-lg) var(--border-radius-lg) 0 0;
+        }
+
+        .header h1 {
+            font-size: clamp(2rem, 5vw, 3rem);
+            margin-bottom: 20px;
+            color: var(--primary-blue);
+            font-weight: 700;
+            letter-spacing: -0.025em;
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--accent-teal) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .header .subtitle {
+            font-size: 1.25rem;
+            color: var(--neutral-600);
+            font-weight: 500;
+            margin-bottom: 12px;
+            animation: fadeInUp 0.8s ease-out 0.2s both;
+        }
+
+        .header .description {
+            font-size: 1.0625rem;
+            color: var(--neutral-500);
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.7;
+            animation: fadeInUp 0.8s ease-out 0.4s both;
+        }
+
+        /* Enhanced search section with modern card design */
+        .search-section {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(20px);
+            border-radius: var(--border-radius-lg);
+            padding: 48px;
+            box-shadow: var(--shadow-xl);
+            margin-bottom: 32px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .search-section:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+        }
+
+        /* Modern tab design with smooth animations */
+        .search-tabs {
+            display: flex;
+            margin-bottom: 40px;
+            background: var(--neutral-100);
+            border-radius: var(--border-radius);
+            padding: 6px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .search-tabs::before {
+            content: '';
+            position: absolute;
+            top: 6px;
+            left: 6px;
+            width: calc(33.333% - 4px);
+            height: calc(100% - 12px);
+            background: white;
+            border-radius: var(--border-radius-sm);
+            box-shadow: var(--shadow-md);
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 1;
+        }
+
+        .search-tabs[data-active="1"]::before { transform: translateX(0); }
+        .search-tabs[data-active="2"]::before { transform: translateX(100%); }
+        .search-tabs[data-active="3"]::before { transform: translateX(200%); }
+
+        .tab-button {
+            background: none;
+            border: none;
+            padding: 16px 24px;
+            font-size: 0.95rem;
+            cursor: pointer;
+            color: var(--neutral-600);
+            border-radius: var(--border-radius-sm);
+            transition: all 0.3s ease;
+            font-weight: 500;
+            flex: 1;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .tab-button.active {
+            color: var(--primary-blue);
+            font-weight: 600;
+        }
+
+        .tab-button:hover:not(.active) {
+            color: var(--neutral-700);
+            transform: translateY(-1px);
+        }
+
+        .tab-content {
+            display: none;
+            margin-top: 32px;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .form-group {
+    margin-bottom: 28px;
+    position: relative; /* Needed for autocomplete */
+}
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 600;
+            color: var(--neutral-700);
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* Modern form controls with enhanced styling */
+        select, input {
+            width: 100%;
+            padding: 16px 20px;
+            border: 2px solid var(--neutral-200);
+            border-radius: var(--border-radius);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: white;
+            font-family: inherit;
+            box-shadow: var(--shadow-sm);
+        }
+        
+        input[type="checkbox"] {
+            width: auto;
+            margin: 0;
+        }
+
+        select:focus, input:focus {
+            outline: none;
+            border-color: var(--primary-blue);
+            box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
+            transform: translateY(-2px);
+        }
+
+        select:disabled {
+            background: var(--neutral-50);
+            color: var(--neutral-400);
+            cursor: not-allowed;
+            border-color: var(--neutral-200);
+        }
+
+        /* Enhanced button with modern gradient and animations */
+        .search-button {
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--accent-teal) 100%);
+            color: white;
+            border: none;
+            padding: 18px 36px;
+            border-radius: var(--border-radius);
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            box-shadow: var(--shadow-lg);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .search-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .search-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 20px 25px -5px rgb(37 99 235 / 0.4);
+        }
+
+        .search-button:hover::before {
+            left: 100%;
+        }
+
+        .search-button:active {
+            transform: translateY(-1px);
+        }
+
+        /* Enhanced results section with modern styling */
+        .results-section {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(20px);
+            border-radius: var(--border-radius-lg);
+            padding: 48px;
+            box-shadow: var(--shadow-xl);
+            display: none;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            animation: slideInUp 0.5s ease-out;
+        }
+
+        .results-section.show {
+            display: block;
+        }
+
+        /* Modern country header with enhanced visual appeal */
+        .country-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 48px;
+            padding: 32px;
+            background: linear-gradient(135deg, var(--neutral-50) 0%, white 100%);
+            border-radius: var(--border-radius-lg);
+            border: 1px solid var(--neutral-200);
+            box-shadow: var(--shadow-md);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .country-header::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 6px;
+            background: linear-gradient(135deg, var(--primary-blue), var(--accent-teal));
+            border-radius: 0 var(--border-radius) var(--border-radius) 0;
+        }
+
+        .country-flag {
+            width: 80px;
+            height: 60px;
+            border-radius: var(--border-radius);
+            margin-right: 24px;
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            box-shadow: var(--shadow-lg);
+            border: 1px solid var(--neutral-200);
+            transition: transform 0.3s ease;
+        }
+
+        .country-flag:hover {
+            transform: scale(1.05) rotate(2deg);
+        }
+
+        .country-name {
+            font-size: 2.25rem;
+            color: var(--primary-blue);
+            margin-right: 20px;
+            font-weight: 700;
+            letter-spacing: -0.025em;
+        }
+
+        .country-agency {
+            color: var(--neutral-600);
+            font-size: 1.125rem;
+            font-weight: 500;
+        }
+
+        /* Enhanced category styling with modern accordion design */
+        .category {
+            margin-bottom: 28px;
+            border: 1px solid var(--neutral-200);
+            border-radius: var(--border-radius-lg);
+            overflow: hidden;
+            background: white;
+            box-shadow: var(--shadow-md);
+            transition: all 0.3s ease;
+        }
+
+        .category:hover {
+            box-shadow: var(--shadow-lg);
+            transform: translateY(-2px);
+        }
+
+        .category-header {
+            background: linear-gradient(135deg, var(--neutral-50) 0%, white 100%);
+            padding: 24px 28px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+            color: var(--neutral-700);
+            transition: all 0.3s ease;
+            border-bottom: 1px solid var(--neutral-200);
+            position: relative;
+        }
+
+        .category-header::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: linear-gradient(135deg, var(--primary-blue), var(--accent-teal));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .category-header:hover {
+            background: linear-gradient(135deg, var(--neutral-100) 0%, var(--neutral-50) 100%);
+        }
+
+        .category-header:hover::before {
+            opacity: 1;
+        }
+
+        .category-content {
+            padding: 0;
+            display: none;
+            background: white;
+            animation: slideDown 0.3s ease-out;
+        }
+
+        .category-content.show {
+            display: block;
+        }
+
+        .requirement {
+            padding: 28px;
+            border-bottom: 1px solid var(--neutral-100);
+            transition: background-color 0.3s ease;
+        }
+
+        .requirement:last-child {
+            border-bottom: none;
+        }
+
+        .requirement:hover {
+            background: var(--neutral-50);
+        }
+
+        .requirement-title {
+            font-weight: 600;
+            color: var(--neutral-800);
+            margin-bottom: 16px;
+            font-size: 1.0625rem;
+            line-height: 1.5;
+        }
+
+        /* Modern answer badges with enhanced styling */
+        .requirement-answer {
+            background: linear-gradient(135deg, rgba(37, 99, 235, 0.1) 0%, rgba(13, 148, 136, 0.1) 100%);
+            color: var(--primary-blue);
+            padding: 10px 20px;
+            border-radius: 24px;
+            display: inline-block;
+            margin-bottom: 16px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            border: 1px solid rgba(37, 99, 235, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .requirement-answer:hover {
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .requirement-detail {
+            color: var(--neutral-600);
+            line-height: 1.7;
+            margin-bottom: 16px;
+            font-size: 0.95rem;
+        }
+
+        .requirement-source {
+            font-size: 0.875rem;
+            color: var(--neutral-500);
+            font-style: italic;
+            padding: 16px;
+            background: var(--neutral-50);
+            border-radius: var(--border-radius);
+            border-left: 4px solid var(--accent-teal);
+            margin-top: 12px;
+        }
+
+        .requirement-source a {
+            color: var(--primary-blue);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .requirement-source a:hover {
+            color: var(--accent-teal);
+            text-decoration: underline;
+        }
+
+        /* Enhanced loading and error states with modern animations */
+        .loading {
+            text-align: center;
+            padding: 80px;
+            color: var(--neutral-500);
+            font-size: 1.125rem;
+        }
+
+        .loading::before {
+            content: '';
+            display: block;
+            width: 48px;
+            height: 48px;
+            margin: 0 auto 24px;
+            border: 4px solid var(--neutral-200);
+            border-top: 4px solid var(--primary-blue);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        .error {
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.1) 0%, rgba(239, 68, 68, 0.05) 100%);
+            color: var(--error);
+            padding: 24px;
+            border-radius: var(--border-radius);
+            margin: 24px 0;
+            border: 1px solid rgba(239, 68, 68, 0.2);
+            border-left: 4px solid var(--error);
+        }
+
+        /* Enhanced comparison table with modern styling */
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 28px;
+            background: white;
+            border-radius: var(--border-radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow-lg);
+            border: 1px solid var(--neutral-200);
+        }
+
+        .comparison-table th,
+        .comparison-table td {
+            border: 1px solid var(--neutral-200);
+            padding: 20px;
+            text-align: left;
+            vertical-align: top;
+        }
+
+        .comparison-table th {
+            background: linear-gradient(135deg, var(--neutral-50) 0%, white 100%);
+            font-weight: 600;
+            color: var(--neutral-700);
+            font-size: 0.95rem;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        .comparison-table tr:nth-child(even) {
+            background: var(--neutral-50);
+        }
+
+        .comparison-table tr:hover {
+            background: linear-gradient(135deg, rgba(37, 99, 235, 0.05) 0%, rgba(13, 148, 136, 0.05) 100%);
+            transform: scale(1.01);
+            box-shadow: var(--shadow-md);
+        }
+
+        .chevron {
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            color: var(--neutral-400);
+            font-size: 1rem;
+            font-weight: bold;
+        }
+
+        .chevron.rotated {
+            transform: rotate(180deg);
+        }
+        
+        /* Enhanced filter options with modern styling */
+        #filter-options {
+            max-height: 500px;
+            overflow-y: auto;
+            border: 1px solid var(--neutral-200);
+            padding: 28px;
+            border-radius: var(--border-radius-lg);
+            background: linear-gradient(135deg, var(--neutral-50) 0%, white 100%);
+            box-shadow: var(--shadow-md);
+        }
+
+        #filter-options::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        #filter-options::-webkit-scrollbar-track {
+            background: var(--neutral-100);
+            border-radius: 4px;
+        }
+
+        #filter-options::-webkit-scrollbar-thumb {
+            background: var(--neutral-300);
+            border-radius: 4px;
+        }
+
+        #filter-options::-webkit-scrollbar-thumb:hover {
+            background: var(--neutral-400);
+        }
+        
+        .filter-category h3 {
+            font-size: 1.125rem;
+            color: var(--primary-blue);
+            margin-top: 24px;
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid var(--neutral-200);
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .filter-category:first-child h3 {
+            margin-top: 0;
+        }
+        
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 16px;
+            padding: 12px;
+            border-radius: var(--border-radius-sm);
+            transition: all 0.3s ease;
+        }
+
+        .checkbox-group:hover {
+            background: rgba(37, 99, 235, 0.05);
+        }
+
+        .checkbox-group input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            accent-color: var(--primary-blue);
+            cursor: pointer;
+        }
+
+        .checkbox-group label {
+            margin-bottom: 0;
+            font-weight: 500;
+            color: var(--neutral-700);
+            flex-grow: 1;
+            cursor: pointer;
+            line-height: 1.5;
+        }
+        
+        /* Enhanced filter results with modern card grid */
+        .filter-results-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 24px;
+            margin-top: 28px;
+        }
+        
+        .country-card {
+            background: linear-gradient(135deg, white 0%, var(--neutral-50) 100%);
+            border: 1px solid var(--neutral-200);
+            border-radius: var(--border-radius-lg);
+            padding: 28px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow-md);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .country-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-blue), var(--accent-teal));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .country-card:hover {
+            transform: translateY(-6px);
+            box-shadow: var(--shadow-xl);
+            border-color: var(--primary-blue);
+        }
+
+        .country-card:hover::before {
+            opacity: 1;
+        }
+        
+        .country-card .card-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+        
+        .country-card .card-flag {
+            font-size: 2.5rem;
+            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+        }
+        
+        .country-card .card-name {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--neutral-800);
+            line-height: 1.3;
+        }
+        
+        .country-card .card-agency {
+            font-size: 0.9rem;
+            color: var(--neutral-500);
+            font-weight: 500;
+        }
+
+        /* Added modern animations and keyframes */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        /* Enhanced responsive design with better mobile experience */
+        @media (max-width: 768px) {
+            .institutional-header .container {
+                flex-direction: column;
+                gap: 16px;
+                text-align: center;
+            }
+
+            .institutional-nav {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 12px;
+            }
+
+            .header {
+                padding: 48px 24px;
+                margin-bottom: 24px;
+            }
+
+            .header h1 {
+                font-size: 2rem;
+            }
+
+            .search-section {
+                padding: 32px 24px;
+                margin-bottom: 24px;
+            }
+
+            .search-tabs {
+                flex-direction: column;
+                background: none;
+                padding: 0;
+                gap: 8px;
+            }
+
+            .search-tabs::before {
+                display: none;
+            }
+
+            .tab-button {
+                background: white;
+                border: 2px solid var(--neutral-200);
+                border-radius: var(--border-radius);
+                box-shadow: var(--shadow-sm);
+            }
+
+            .tab-button.active {
+                background: var(--primary-blue);
+                color: white;
+                border-color: var(--primary-blue);
+            }
+
+            .country-header {
+                flex-direction: column;
+                text-align: center;
+                gap: 16px;
+                padding: 24px;
+            }
+
+            .country-name {
+                margin-right: 0;
+                font-size: 1.75rem;
+            }
+
+            .comparison-table {
+                font-size: 0.875rem;
+            }
+
+            .comparison-table th,
+            .comparison-table td {
+                padding: 12px 8px;
+            }
+
+            .filter-results-container {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+
+            .results-section {
+                padding: 32px 24px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 16px;
+            }
+
+            .header {
+                padding: 32px 20px;
+            }
+
+            .search-section {
+                padding: 24px 20px;
+            }
+
+            .results-section {
+                padding: 24px 20px;
+            }
+        }
+
+        /* Added smooth scroll behavior and focus styles */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        *:focus-visible {
+            outline: 2px solid var(--primary-blue);
+            outline-offset: 2px;
+        }
+
+        /* Added utility classes for enhanced interactivity */
+        .pulse {
+            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: .5;
+            }
+        }
+
+        .bounce {
+            animation: bounce 1s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(-25%);
+                animation-timing-function: cubic-bezier(0.8, 0, 1, 1);
+            }
+            50% {
+                transform: none;
+                animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
+            }
+        }
+        /* --- AUTOCOMPLETE STYLES --- */
+.autocomplete-items {
+    position: absolute;
+    border: 1px solid var(--neutral-300);
+    border-top: none;
+    z-index: 99;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background-color: white;
+    border-radius: 0 0 var(--border-radius) var(--border-radius);
+    box-shadow: var(--shadow-lg);
+    max-height: 250px;
+    overflow-y: auto;
+    display: none; /* Oculto por defecto */
+}
+
+.autocomplete-items div {
+    padding: 14px 20px;
+    cursor: pointer;
+    border-bottom: 1px solid var(--neutral-100);
+    font-size: 0.95rem;
+}
+
+.autocomplete-items div:last-child {
+    border-bottom: none;
+}
+
+.autocomplete-items div:hover {
+    background-color: var(--neutral-100);
+    color: var(--primary-blue);
+}
+/* --- END AUTOCOMPLETE STYLES --- */
+    </style>
+</head>
+<body>
+    <!-- Enhanced institutional header with modern icons -->
+    <div class="institutional-header">
+        <div class="container">
+            <div class="institutional-logo">
+                <div class="logo-icon">
+                    <i class="fas fa-university"></i>
+                </div>
+                <span>Prototipo de Plataforma para OPS</span>
+            </div>
+            <nav class="institutional-nav">
+                 <nav class="institutional-nav">
+                <a href="index.html"><i class="fas fa-home"></i> Inicio</a>
+                <a href="como_usar.html"><i class="fas fa-question-circle"></i> Cómo Usar</a>
+                <a href="https://www.paho.org/es/portal-ensayos-clinicos-americas" target="_blank"><i class="fas fa-book"></i> Recursos</a>
+            </nav>
+            </nav>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="header">
+            <h1><i class="fas fa-hospital-alt"></i> Plataforma Regulatoria</h1>
+            <p class="subtitle">Requisitos para Ensayos Clínicos en América</p>
+            <p class="description">Sistema integral de consulta de requisitos regulatorios para la conducción de ensayos clínicos en países de América Latina y el Caribe</p>
+        </div>
+
+        <div class="search-section">
+            <!-- Enhanced tabs with modern icons and improved UX -->
+            <div class="search-tabs" data-active="1">
+                <button class="tab-button active" onclick="switchTab('country', 1)">
+                    <i class="fas fa-map-marker-alt"></i> Consulta por País
+                </button>
+                <button class="tab-button" onclick="switchTab('requirement', 2)">
+                    <i class="fas fa-clipboard-list"></i> Comparar por Requisito
+                </button>
+                <button class="tab-button" onclick="switchTab('filter', 3)">
+                    <i class="fas fa-filter"></i> Búsqueda Filtrada
+                </button>
+            </div>
+
+            <div id="country-tab" class="tab-content active">
+                <div class="form-group">
+    <label for="country-input">
+        <i class="fas fa-globe-americas"></i>
+        Seleccionar País:
+    </label>
+    <input type="text" id="country-input" placeholder="Escriba para buscar un país...">
+    <input type="hidden" id="country-id-hidden">
+    <div id="autocomplete-results" class="autocomplete-items"></div>
+</div>
+                <button class="search-button" onclick="searchByCountry()">
+                    <i class="fas fa-search"></i>
+                    Consultar Requisitos
+                </button>
+            </div>
+
+            <div id="requirement-tab" class="tab-content">
+                <div class="form-group">
+                    <label for="category-select">
+                        <i class="fas fa-tags"></i>
+                        Seleccionar Categoría:
+                    </label>
+                    <select id="category-select">
+                        <option value="">Seleccione una categoría...</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="aspect-select">
+                        <i class="fas fa-list-ul"></i>
+                        Seleccionar Aspecto Específico:
+                    </label>
+                    <select id="aspect-select" disabled>
+                        <option value="">Primero seleccione una categoría...</option>
+                    </select>
+                </div>
+                <button class="search-button" onclick="searchByRequirement()">
+                    <i class="fas fa-chart-bar"></i>
+                    Comparar Países
+                </button>
+            </div>
+            
+            <div id="filter-tab" class="tab-content">
+                <label>
+                    <i class="fas fa-check-square"></i>
+                    Seleccione los criterios que deben cumplir los países:
+                </label>
+                <div id="filter-options">
+                    <!-- Las opciones de filtro se cargarán aquí dinámicamente -->
+                </div>
+                <br>
+                <button class="search-button" onclick="searchByFilter()">
+                    <i class="fas fa-filter"></i>
+                    Filtrar Países
+                </button>
+            </div>
+        </div>
+
+        <div id="results-section" class="results-section">
+            <div id="results-content"></div>
+        </div>
+    </div>
+
+    <script>
+        // Configuración de Supabase (reemplaza con tus credenciales)
+        const SUPABASE_URL = 'https://your-project.supabase.co';
+        const SUPABASE_ANON_KEY = 'your-anon-key';
+        
+        // Inicializar cliente Supabase
+        let supabase;
+        
+        // Datos de muestra para el prototipo
+        const sampleData = {
+            countries: [
+                { id: 1, name: 'Argentina', code: 'AR', regulatory_agency: 'ANMAT', flag: '🇦🇷' },
+                { id: 2, name: 'Brasil', code: 'BR', regulatory_agency: 'ANVISA', flag: '🇧🇷' },
+                { id: 3, name: 'Colombia', code: 'CO', regulatory_agency: 'INVIMA', flag: '🇨🇴' },
+                { id: 4, name: 'México', code: 'MX', regulatory_agency: 'COFEPRIS', flag: '🇲🇽' },
+                { id: 5, name: 'Chile', code: 'CL', regulatory_agency: 'ISP', flag: '🇨🇱' },
+                { id: 6, name: 'Antigua y Barbuda', code: 'AG', regulatory_agency: 'Ministry of Health', flag: '🇦🇬' },
+                { id: 7, name: 'Bahamas', code: 'BS', regulatory_agency: 'Ministry of Health', flag: '🇧🇸' },
+                { id: 8, name: 'Barbados', code: 'BB', regulatory_agency: 'Ministry of Health and Wellness', flag: '🇧🇧' },
+                { id: 9, name: 'Belice', code: 'BZ', regulatory_agency: 'Ministry of Health & Wellness', flag: '🇧🇿' },
+                { id: 10, name: 'Bolivia', code: 'BO', regulatory_agency: 'AGEMED', flag: '🇧🇴' },
+                { id: 11, name: 'Costa Rica', code: 'CR', regulatory_agency: 'CONIS', flag: '🇨🇷' },
+                { id: 12, name: 'Cuba', code: 'CU', regulatory_agency: 'CECMED', flag: '🇨🇺' },
+                { id: 13, name: 'Dominica', code: 'DM', regulatory_agency: 'Ministry of Health', flag: '🇩🇲' },
+                { id: 14, name: 'República Dominicana', code: 'DO', regulatory_agency: 'DIGEMAPS / CONABIOS', flag: '🇩🇴' },
+                { id: 15, name: 'Ecuador', code: 'EC', regulatory_agency: 'ARCSA', flag: '🇪🇨' },
+                { id: 16, name: 'El Salvador', code: 'SV', regulatory_agency: 'DNM', flag: '🇸🇻' },
+                { id: 17, name: 'Granada', code: 'GD', regulatory_agency: 'Ministry of Health', flag: '🇬🇩' },
+                { id: 18, name: 'Guatemala', code: 'GT', regulatory_agency: 'Departamento de Regulación y Control', flag: '🇬🇹' },
+                { id: 19, name: 'Guyana', code: 'GY', regulatory_agency: 'Ministry of Public Health', flag: '🇬🇾' },
+                { id: 20, name: 'Haití', code: 'HT', regulatory_agency: 'MSPP', flag: '🇭🇹' },
+                { id: 21, name: 'Honduras', code: 'HN', regulatory_agency: 'ARSA', flag: '🇭🇳' },
+                { id: 22, name: 'Jamaica', code: 'JM', regulatory_agency: 'Ministry of Health & Wellness', flag: '🇯🇲' },
+                { id: 23, name: 'Nicaragua', code: 'NI', regulatory_agency: 'MINSA', flag: '🇳🇮' },
+                { id: 24, name: 'Panamá', code: 'PA', regulatory_agency: 'Ministerio de Salud / CNBI', flag: '🇵🇦' },
+                { id: 25, name: 'Paraguay', code: 'PY', regulatory_agency: 'DINAVISA', flag: '🇵🇾' },
+                { id: 26, name: 'Perú', code: 'PE', regulatory_agency: 'INS / DIGEMID', flag: '🇵🇪' },
+                { id: 27, name: 'San Cristóbal y Nieves', code: 'KN', regulatory_agency: 'Ministry of Health', flag: '🇰🇳' },
+                { id: 28, name: 'Santa Lucía', code: 'LC', regulatory_agency: 'Ministry of Health', flag: '🇱🇨' },
+                { id: 29, name: 'San Vicente y las Granadinas', code: 'VC', regulatory_agency: 'Ministry of Health', flag: '🇻🇨' },
+                { id: 30, name: 'Surinam', code: 'SR', regulatory_agency: 'Ministry of Health', flag: '🇸🇷' },
+                { id: 31, name: 'Trinidad y Tobago', code: 'TT', regulatory_agency: 'Ministry of Health', flag: '🇹🇹' },
+                { id: 32, name: 'Uruguay', code: 'UY', regulatory_agency: 'Ministerio de Salud Pública (MSP)', flag: '🇺🇾' },
+                { id: 33, name: 'Venezuela', code: 'VE', regulatory_agency: 'INHRR', flag: '🇻🇪' }
+            ],
+            categories: [
+                { id: 1, name: 'Marco Legal y Normativo General' },
+                { id: 2, name: 'Autorización y Permisos' },
+                { id: 3, name: 'Comités de Ética' },
+                { id: 4, name: 'Consentimiento Informado' },
+                { id: 5, name: 'Documentación del Protocolo' },
+                { id: 6, name: 'Productos en Investigación' },
+                { id: 7, name: 'Investigadores y Sitios' },
+                { id: 8, name: 'Monitoreo y Farmacovigilancia' },
+                { id: 9, name: 'Aspectos Financieros y Administrativos' },
+                { id: 10, name: 'Finalización y Resultados' }
+            ],
+            aspects: [
+                // 1. Marco Legal y Normativo General
+                { id: 101, category_id: 1, question: '¿Cuál es la autoridad regulatoria competente para ensayos clínicos?' },
+                { id: 102, category_id: 1, question: '¿Qué normativas nacionales e internacionales rigen los ensayos clínicos?' },
+                { id: 103, category_id: 1, question: '¿Existe adhesión a las Buenas Prácticas Clínicas (GCP) de ICH?' },
+                { id: 104, category_id: 1, question: '¿Cuáles son las sanciones por incumplimiento normativo?' },
+                { id: 105, category_id: 1, question: '¿Hay diferencias regulatorias entre ensayos académicos y comerciales?' },
+                // 2. Autorización y Permisos
+                { id: 201, category_id: 2, question: '¿Se requiere autorización previa de la autoridad regulatoria?' },
+                { id: 202, category_id: 2, question: '¿Cuál es el proceso de solicitud de autorización?' },
+                { id: 203, category_id: 2, question: '¿Qué documentos se requieren para la solicitud inicial?' },
+                { id: 204, category_id: 2, question: '¿Cuáles son los tiempos de evaluación y respuesta?' },
+                { id: 205, category_id: 2, question: '¿Existe un procedimiento de silencio administrativo positivo o negativo?' },
+                // 3. Comités de Ética
+                { id: 301, category_id: 3, question: '¿Es obligatoria la aprobación por un Comité de Ética en Investigación?' },
+                { id: 302, category_id: 3, question: '¿Cuántos comités de ética deben aprobar el estudio?' },
+                { id: 303, category_id: 3, question: '¿Existe un sistema centralizado o descentralizado de comités de ética?' },
+                { id: 304, category_id: 3, question: '¿Cuáles son los criterios de evaluación ética?' },
+                { id: 305, category_id: 3, question: '¿Qué documentos debe revisar el comité de ética?' },
+                // 4. Consentimiento Informado
+                { id: 401, category_id: 4, question: '¿Cuáles son los requisitos mínimos del consentimiento informado?' },
+                { id: 402, category_id: 4, question: '¿Se permite consentimiento electrónico?' },
+                { id: 403, category_id: 4, question: '¿Hay requisitos específicos para poblaciones vulnerables?' },
+                { id: 404, category_id: 4, question: '¿Cuáles son las reglas para menores de edad?' },
+                { id: 405, category_id: 4, question: '¿Se permite consentimiento por representante legal?' },
+                // 5. Documentación del Protocolo
+                { id: 501, category_id: 5, question: '¿Qué elementos debe contener el protocolo de investigación?' },
+                { id: 502, category_id: 5, question: '¿Se requiere traducción oficial de documentos extranjeros?' },
+                { id: 503, category_id: 5, question: '¿Hay formatos estandarizados obligatorios?' },
+                { id: 504, category_id: 5, question: '¿Cuáles son los requisitos para enmiendas al protocolo?' },
+                { id: 505, category_id: 5, question: '¿Se requiere justificación científica específica?' },
+                // 6. Productos en Investigación
+                { id: 601, category_id: 6, question: '¿Cuáles son los requisitos para importación de medicamentos en investigación?' },
+                { id: 602, category_id: 6, question: '¿Se requiere autorización específica para cada lote?' },
+                { id: 603, category_id: 6, question: '¿Qué documentación de calidad se exige (CMC)?' },
+                { id: 604, category_id: 6, question: '¿Hay requisitos de etiquetado específicos?' },
+                { id: 605, category_id: 6, question: '¿Cuáles son las condiciones de almacenamiento y distribución?' },
+                // 7. Investigadores y Sitios
+                { id: 701, category_id: 7, question: '¿Cuáles son los requisitos de calificación para investigadores principales?' },
+                { id: 702, category_id: 7, question: '¿Se requiere registro o acreditación de investigadores?' },
+                { id: 703, category_id: 7, question: '¿Qué requisitos deben cumplir las instalaciones clínicas?' },
+                { id: 704, category_id: 7, question: '¿Hay límites en el número de estudios por investigador?' },
+                { id: 705, category_id: 7, question: '¿Se requiere seguro de responsabilidad civil?' },
+                // 8. Monitoreo y Farmacovigilancia
+                { id: 801, category_id: 8, question: '¿Cuáles son las obligaciones de reporte de eventos adversos?' },
+                { id: 802, category_id: 8, question: '¿Qué plazos existen para notificación de eventos adversos serios?' },
+                { id: 803, category_id: 8, question: '¿Se requiere un sistema de farmacovigilancia local?' },
+                { id: 804, category_id: 8, question: '¿Hay obligaciones de monitoreo en sitio?' },
+                { id: 805, category_id: 8, question: '¿Qué registros deben mantenerse durante el estudio?' },
+                // 9. Aspectos Financieros y Administrativos
+                { id: 901, category_id: 9, question: '¿Existen tasas regulatorias asociadas al proceso?' },
+                { id: 902, category_id: 9, question: '¿Cuál es el costo total del proceso regulatorio?' },
+                { id: 903, category_id: 9, question: '¿Hay exenciones de tasas para estudios académicos?' },
+                { id: 904, category_id: 9, question: '¿Se requiere garantía financiera o seguro?' },
+                { id: 905, category_id: 9, question: '¿Existen incentivos fiscales para investigación clínica?' },
+                // 10. Finalización y Resultados
+                { id: 1001, category_id: 10, question: '¿Cuáles son las obligaciones de reporte al finalizar el estudio?' },
+                { id: 1002, category_id: 10, question: '¿Se requiere publicación de resultados?' },
+                { id: 1003, category_id: 10, question: '¿Hay obligaciones de acceso expandido post-estudio?' },
+                { id: 1004, category_id: 10, question: '¿Qué documentos deben conservarse y por cuánto tiempo?' },
+                { id: 1005, category_id: 10, question: '¿Existen requisitos de transferencia de datos a autoridades?' }
+            ],
+            responses: [] // Las respuestas se generarán dinámicamente
+        };
+
+        // Función para generar datos de muestra para el prototipo
+        function generateSampleResponses() {
+            const responses = [];
+            const placeholderText = (country, aspect) => `Respuesta detallada de ejemplo para ${country.name}. La información aquí es solo para demostración del prototipo y debe ser verificada con la autoridad competente: ${country.regulatory_agency}. Este campo corresponde a: "${aspect.question}".`
+            const yesNoOptions = ['Sí (Ejemplo)', 'No (Ejemplo)', 'Parcialmente (Ejemplo)'];
+
+            sampleData.countries.forEach(country => {
+                sampleData.aspects.forEach(aspect => {
+                    let short_answer = 'Dato de Ejemplo';
+                    // Para preguntas de sí/no, asignar una respuesta aleatoria para hacer el filtro funcional
+                    if (aspect.question.toLowerCase().includes('requiere') || aspect.question.toLowerCase().includes('permite') || aspect.question.toLowerCase().includes('existe') || aspect.question.toLowerCase().includes('obligatoria') || aspect.question.toLowerCase().includes('hay')) {
+                        short_answer = yesNoOptions[Math.floor(Math.random() * yesNoOptions.length)];
+                    } else if (aspect.question.toLowerCase().includes('tiempos')) {
+                        short_answer = `${Math.floor(Math.random() * 120) + 30} días (Ejemplo)`;
+                    } else if (aspect.question.toLowerCase().includes('autoridad regulatoria')) {
+                        short_answer = country.regulatory_agency;
+                    }
+
+                    responses.push({
+                        country_id: country.id,
+                        aspect_id: aspect.id,
+                        short_answer: short_answer,
+                        detailed_answer: placeholderText(country, aspect),
+                        source: 'Fuente de Ejemplo (Verificar)',
+                        link: '',
+                        last_updated: '2024-01-15'
+                    });
+                });
+            });
+            sampleData.responses = responses;
+        }
+
+
+        // Inicialización
+        document.addEventListener('DOMContentLoaded', function() {
+            generateSampleResponses(); // Generar los datos de muestra
+            initializeSupabase();
+            initializeCountryAutocomplete();
+            loadCategories();
+            loadFilterOptions(); // Cargar las opciones para la nueva pestaña de filtro
+        });
+
+        function initializeSupabase() {
+            // En un entorno real, descomenta estas líneas y usa tus credenciales de Supabase
+            // supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+            console.log('Usando datos de muestra para el prototipo');
+        }
+
+        function switchTab(tab, tabIndex) {
+            // Cambiar estado activo de las tabs
+            document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+            
+            document.querySelector(`[onclick="switchTab('${tab}', ${tabIndex})"]`).classList.add('active');
+            document.getElementById(`${tab}-tab`).classList.add('active');
+            
+            // Update tab indicator position
+            document.querySelector('.search-tabs').setAttribute('data-active', tabIndex);
+            
+            // Limpiar resultados
+            document.getElementById('results-section').classList.remove('show');
+        }
+
+        function initializeCountryAutocomplete() {
+    const input = document.getElementById('country-input');
+    const resultsContainer = document.getElementById('autocomplete-results');
+    const hiddenInput = document.getElementById('country-id-hidden');
+    const sortedCountries = [...sampleData.countries].sort((a, b) => a.name.localeCompare(b.name));
+
+    input.addEventListener('input', function() {
+        const value = this.value.toLowerCase();
+        resultsContainer.innerHTML = '';
+        hiddenInput.value = ''; // Limpiar el ID si el usuario modifica el texto
+        if (!value) {
+            resultsContainer.style.display = 'none';
+            return;
+        }
+
+        const filteredCountries = sortedCountries.filter(country =>
+            country.name.toLowerCase().includes(value)
+        );
+
+        filteredCountries.forEach(country => {
+            const item = document.createElement('div');
+            item.innerHTML = `${country.flag} ${country.name}`;
+            item.addEventListener('click', function() {
+                input.value = `${country.flag} ${country.name}`;
+                hiddenInput.value = country.id;
+                resultsContainer.innerHTML = '';
+                resultsContainer.style.display = 'none';
+            });
+            resultsContainer.appendChild(item);
+        });
+
+        if (filteredCountries.length > 0) {
+            resultsContainer.style.display = 'block';
+        } else {
+            resultsContainer.style.display = 'none';
+        }
+    });
+
+    // Cerrar el autocompletado si se hace clic fuera
+    document.addEventListener('click', function (e) {
+        if (e.target !== input) {
+            resultsContainer.style.display = 'none';
+        }
+    });
+}
+
+        function loadCategories() {
+            const categorySelect = document.getElementById('category-select');
+            sampleData.categories.forEach(category => {
+                const option = document.createElement('option');
+                option.value = category.id;
+                option.textContent = category.name;
+                categorySelect.appendChild(option);
+            });
+            
+            categorySelect.addEventListener('change', loadAspects);
+        }
+
+        function loadAspects() {
+            const categoryId = parseInt(document.getElementById('category-select').value);
+            const aspectSelect = document.getElementById('aspect-select');
+            
+            // Limpiar opciones anteriores
+            aspectSelect.innerHTML = '<option value="">Seleccione un aspecto...</option>';
+            
+            if (categoryId) {
+                aspectSelect.disabled = false;
+                const aspects = sampleData.aspects.filter(aspect => aspect.category_id === categoryId);
+                aspects.forEach(aspect => {
+                    const option = document.createElement('option');
+                    option.value = aspect.id;
+                    option.textContent = aspect.question;
+                    aspectSelect.appendChild(option);
+                });
+            } else {
+                aspectSelect.disabled = true;
+                aspectSelect.innerHTML = '<option value="">Primero seleccione una categoría...</option>';
+            }
+        }
+        
+        // --- NUEVAS FUNCIONES PARA EL FILTRADO ---
+
+        function loadFilterOptions() {
+            const container = document.getElementById('filter-options');
+            let html = '';
+
+            sampleData.categories.forEach(category => {
+                html += `<div class="filter-category"><h3><i class="fas fa-folder"></i> ${category.name}</h3>`;
+                const aspects = sampleData.aspects.filter(a => a.category_id === category.id);
+                aspects.forEach(aspect => {
+                    // Solo incluir preguntas que se puedan responder con sí/no para un filtro efectivo
+                     if (aspect.question.toLowerCase().includes('requiere') || aspect.question.toLowerCase().includes('permite') || aspect.question.toLowerCase().includes('existe') || aspect.question.toLowerCase().includes('obligatoria') || aspect.question.toLowerCase().includes('hay')) {
+                        html += `
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="filter-${aspect.id}" value="${aspect.id}">
+                                <label for="filter-${aspect.id}">${aspect.question}</label>
+                            </div>
+                        `;
+                    }
+                });
+                html += `</div>`;
+            });
+
+            container.innerHTML = html;
+        }
+        
+        function isPositiveResponse(answer) {
+            // Define qué respuestas se consideran "positivas" para el filtro
+            if (!answer) return false;
+            const positiveTerms = ['sí', 'si', 'parcialmente'];
+            const lowerCaseAnswer = answer.toLowerCase();
+            return positiveTerms.some(term => lowerCaseAnswer.startsWith(term));
+        }
+
+        async function searchByFilter() {
+            const checkedBoxes = document.querySelectorAll('#filter-options input[type="checkbox"]:checked');
+            if (checkedBoxes.length === 0) {
+                alert('Por favor seleccione al menos un criterio para filtrar.');
+                return;
+            }
+
+            showLoading();
+            await new Promise(resolve => setTimeout(resolve, 500)); // Simular delay
+
+            const selectedAspectIds = Array.from(checkedBoxes).map(cb => parseInt(cb.value));
+            
+            let matchingCountries = [...sampleData.countries];
+
+            // Filtrar iterativamente los países por cada criterio seleccionado
+            selectedAspectIds.forEach(aspectId => {
+                matchingCountries = matchingCountries.filter(country => {
+                    const response = sampleData.responses.find(r => r.country_id === country.id && r.aspect_id === aspectId);
+                    return response && isPositiveResponse(response.short_answer);
+                });
+            });
+
+            displayFilterResults(matchingCountries, selectedAspectIds.length);
+        }
+        
+        function displayFilterResults(countries, criteriaCount) {
+            const resultsContent = document.getElementById('results-content');
+            let html = `<h2>Resultados del Filtro</h2>`;
+
+            if (countries.length === 0) {
+                html += `<p>No se encontraron países que cumplan con todos los ${criteriaCount} criterios seleccionados.</p>`;
+            } else {
+                html += `<p><strong>${countries.length}</strong> países cumplen con los <strong>${criteriaCount}</strong> criterios seleccionados:</p>`;
+                html += `<div class="filter-results-container">`;
+                countries.forEach(country => {
+                    html += `
+                        <div class="country-card">
+                            <div class="card-header">
+                                <span class="card-flag">${country.flag}</span>
+                                <span class="card-name">${country.name}</span>
+                            </div>
+                            <div class="card-agency">${country.regulatory_agency}</div>
+                        </div>
+                    `;
+                });
+                html += `</div>`;
+            }
+
+            resultsContent.innerHTML = html;
+            document.getElementById('results-section').classList.add('show');
+        }
+
+        // --- FIN DE NUEVAS FUNCIONES ---
+
+
+        async function searchByCountry() {
+    // CORRECCIÓN: Ahora lee el valor del campo oculto 'country-id-hidden'
+    const countryId = parseInt(document.getElementById('country-id-hidden').value); 
+    
+    if (!countryId) {
+        alert('Por favor, escriba y seleccione un país de la lista.');
+        return;
+    }
+
+    showLoading();
+    
+    try {
+        // Simular delay de API
+        await new Promise(resolve => setTimeout(resolve, 500));
+        
+        const country = sampleData.countries.find(c => c.id === countryId);
+        const responses = sampleData.responses.filter(r => r.country_id === countryId);
+        
+        displayCountryResults(country, responses);
+    } catch (error) {
+        showError('Error al cargar los datos: ' + error.message);
+    }
+}
+        async function searchByRequirement() {
+            const aspectId = parseInt(document.getElementById('aspect-select').value);
+            if (!aspectId) {
+                alert('Por favor seleccione una categoría y aspecto');
+                return;
+            }
+
+            showLoading();
+            
+            try {
+                // Simular delay de API
+                await new Promise(resolve => setTimeout(resolve, 500));
+                
+                const aspect = sampleData.aspects.find(a => a.id === aspectId);
+                const responses = sampleData.responses.filter(r => r.aspect_id === aspectId);
+                
+                displayRequirementComparison(aspect, responses);
+            } catch (error) {
+                showError('Error al cargar los datos: ' + error.message);
+            }
+        }
+
+        function displayCountryResults(country, responses) {
+            const resultsContent = document.getElementById('results-content');
+            
+            const responsesByCategory = {};
+            responses.forEach(response => {
+                const aspect = sampleData.aspects.find(a => a.id === response.aspect_id);
+                const category = sampleData.categories.find(c => c.id === aspect.category_id);
+                
+                if (!responsesByCategory[category.id]) {
+                    responsesByCategory[category.id] = {
+                        category: category,
+                        responses: []
+                    };
+                }
+                
+                responsesByCategory[category.id].responses.push({
+                    aspect: aspect,
+                    response: response
+                });
+            });
+
+            let html = `
+                <div class="country-header">
+                    <div class="country-flag">${country.flag}</div>
+                    <div>
+                        <div class="country-name">${country.name}</div>
+                        <div class="country-agency">${country.regulatory_agency}</div>
+                    </div>
+                </div>
+            `;
+            
+            if (responses.length === 0) {
+                 html += '<p>No hay datos detallados disponibles para este país en la base de datos de muestra.</p>';
+            } else {
+                 Object.values(responsesByCategory).forEach(categoryData => {
+                    html += `
+                        <div class="category">
+                            <div class="category-header" onclick="toggleCategory(this)">
+                                <span>${categoryData.category.name}</span>
+                                <span class="chevron">▼</span>
+                            </div>
+                            <div class="category-content">
+                    `;
+                    
+                    categoryData.responses.forEach(item => {
+                        html += `
+                            <div class="requirement">
+                                <div class="requirement-title">${item.aspect.question}</div>
+                                <div class="requirement-answer">${item.response.short_answer}</div>
+                                <div class="requirement-detail">${item.response.detailed_answer}</div>
+                                <div class="requirement-source">
+                                    Fuente: ${item.response.source} 
+                                    ${item.response.link ? `| <a href="${item.response.link}" target="_blank">Ver documento</a>` : ''}
+                                    | Actualizado: ${item.response.last_updated}
+                                </div>
+                            </div>
+                        `;
+                    });
+                    
+                    html += `
+                            </div>
+                        </div>
+                    `;
+                });
+            }
+
+
+            resultsContent.innerHTML = html;
+            document.getElementById('results-section').classList.add('show');
+        }
+
+        function displayRequirementComparison(aspect, responses) {
+            const resultsContent = document.getElementById('results-content');
+            
+            let html = `
+                <h2>Comparación: ${aspect.question}</h2>
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>País</th>
+                            <th>Agencia</th>
+                            <th>Respuesta</th>
+                            <th>Detalle</th>
+                            <th>Fuente</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+            `;
+            
+            const sortedResponses = [...responses].sort((a, b) => {
+                const countryA = sampleData.countries.find(c => c.id === a.country_id).name;
+                const countryB = sampleData.countries.find(c => c.id === b.country_id).name;
+                return countryA.localeCompare(countryB);
+            });
+
+            sortedResponses.forEach(response => {
+                const country = sampleData.countries.find(c => c.id === response.country_id);
+                html += `
+                    <tr>
+                        <td>${country.flag} ${country.name}</td>
+                        <td>${country.regulatory_agency}</td>
+                        <td><strong>${response.short_answer}</strong></td>
+                        <td>${response.detailed_answer}</td>
+                        <td>${response.source}</td>
+                    </tr>
+                `;
+            });
+            
+            html += `
+                    </tbody>
+                </table>
+            `;
+
+            resultsContent.innerHTML = html;
+            document.getElementById('results-section').classList.add('show');
+        }
+
+        function toggleCategory(header) {
+            const content = header.nextElementSibling;
+            const chevron = header.querySelector('.chevron');
+            
+            if (content.classList.contains('show')) {
+                content.classList.remove('show');
+                chevron.classList.remove('rotated');
+                chevron.innerHTML = '▼';
+            } else {
+                content.classList.add('show');
+                chevron.classList.add('rotated');
+                chevron.innerHTML = '▲';
+            }
+        }
+
+        function showLoading() {
+            const resultsContent = document.getElementById('results-content');
+            resultsContent.innerHTML = '<div class="loading">Cargando datos...</div>';
+            document.getElementById('results-section').classList.add('show');
+        }
+
+        function showError(message) {
+            const resultsContent = document.getElementById('results-content');
+            resultsContent.innerHTML = `<div class="error">${message}</div>`;
+            document.getElementById('results-section').classList.add('show');
+        }
+    </script>
+</body>
+</html>

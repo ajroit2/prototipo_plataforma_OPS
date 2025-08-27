@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cómo Usar la Plataforma Regulatoria - Ensayos Clínicos América</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-blue: #2563eb;
+            --primary-blue-dark: #1d4ed8;
+            --accent-teal: #0d9488;
+            --accent-emerald: #059669;
+            --neutral-50: #f8fafc;
+            --neutral-100: #f1f5f9;
+            --neutral-200: #e2e8f0;
+            --neutral-300: #cbd5e1;
+            --neutral-500: #64748b;
+            --neutral-600: #475569;
+            --neutral-700: #334155;
+            --neutral-800: #1e293b;
+            --neutral-900: #0f172a;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+            --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+            --border-radius: 12px;
+            --border-radius-lg: 16px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, var(--neutral-50) 0%, var(--neutral-100) 100%);
+            min-height: 100vh;
+            color: var(--neutral-800);
+            line-height: 1.6;
+        }
+
+        .institutional-header {
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--primary-blue-dark) 100%);
+            color: white;
+            padding: 16px 0;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .institutional-header .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .institutional-logo {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            font-size: 1.125rem;
+            font-weight: 600;
+        }
+
+        .logo-icon {
+            width: 48px;
+            height: 48px;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .institutional-nav {
+            display: flex;
+            gap: 32px;
+            font-size: 0.95rem;
+            font-weight: 500;
+        }
+
+        .institutional-nav a {
+            color: rgba(255, 255, 255, 0.9);
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .institutional-nav a:hover {
+            color: white;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 24px;
+        }
+
+        .header {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.7) 100%);
+            backdrop-filter: blur(20px);
+            text-align: center;
+            margin-bottom: 32px;
+            padding: 64px 48px;
+            border-radius: var(--border-radius-lg);
+            box-shadow: var(--shadow-xl);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .header h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--accent-teal) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 700;
+        }
+
+        .header .subtitle {
+            font-size: 1.25rem;
+            color: var(--neutral-600);
+            font-weight: 500;
+            margin-bottom: 16px;
+        }
+
+        .header .description {
+            font-size: 1.0625rem;
+            color: var(--neutral-500);
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.7;
+        }
+
+        .section {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(20px);
+            border-radius: var(--border-radius-lg);
+            padding: 48px;
+            box-shadow: var(--shadow-xl);
+            margin-bottom: 32px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .section h2 {
+            color: var(--primary-blue);
+            font-size: 2rem;
+            margin-bottom: 24px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .section h3 {
+            color: var(--neutral-700);
+            font-size: 1.375rem;
+            margin: 32px 0 16px 0;
+            font-weight: 600;
+        }
+
+        .section p {
+            margin-bottom: 16px;
+            font-size: 1.0625rem;
+            line-height: 1.7;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+            margin: 32px 0;
+        }
+
+        .feature-card {
+            background: linear-gradient(135deg, white 0%, var(--neutral-50) 100%);
+            padding: 32px;
+            border-radius: var(--border-radius);
+            border: 1px solid var(--neutral-200);
+            box-shadow: var(--shadow-md);
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .feature-card h4 {
+            color: var(--primary-blue);
+            font-size: 1.25rem;
+            margin-bottom: 16px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .feature-card p {
+            font-size: 1rem;
+            margin-bottom: 0;
+        }
+
+        .step-list {
+            counter-reset: step-counter;
+            list-style: none;
+            margin: 24px 0;
+        }
+
+        .step-list li {
+            counter-increment: step-counter;
+            margin-bottom: 24px;
+            padding: 24px;
+            background: linear-gradient(135deg, var(--neutral-50) 0%, white 100%);
+            border-radius: var(--border-radius);
+            border-left: 4px solid var(--accent-teal);
+            box-shadow: var(--shadow-sm);
+            position: relative;
+        }
+
+        .step-list li::before {
+            content: counter(step-counter);
+            position: absolute;
+            left: -14px;
+            top: 20px;
+            width: 28px;
+            height: 28px;
+            background: var(--accent-teal);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 0.875rem;
+        }
+
+        .step-list li h4 {
+            color: var(--neutral-700);
+            font-size: 1.125rem;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, rgba(37, 99, 235, 0.1) 0%, rgba(13, 148, 136, 0.1) 100%);
+            border: 1px solid rgba(37, 99, 235, 0.2);
+            border-radius: var(--border-radius);
+            padding: 24px;
+            margin: 24px 0;
+            border-left: 4px solid var(--primary-blue);
+        }
+
+        .highlight-box h4 {
+            color: var(--primary-blue);
+            font-size: 1.125rem;
+            margin-bottom: 12px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .category-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 16px;
+            margin: 24px 0;
+        }
+
+        .category-item {
+            background: white;
+            padding: 20px;
+            border-radius: var(--border-radius);
+            border: 1px solid var(--neutral-200);
+            box-shadow: var(--shadow-sm);
+            transition: all 0.3s ease;
+        }
+
+        .category-item:hover {
+            border-color: var(--primary-blue);
+            box-shadow: var(--shadow-md);
+        }
+
+        .category-item h5 {
+            color: var(--primary-blue);
+            font-size: 1rem;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .category-item p {
+            font-size: 0.9rem;
+            margin-bottom: 0;
+            color: var(--neutral-600);
+        }
+
+        .cta-section {
+            text-align: center;
+            padding: 48px;
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--accent-teal) 100%);
+            color: white;
+            border-radius: var(--border-radius-lg);
+            margin-top: 32px;
+        }
+
+        .cta-section h3 {
+            font-size: 1.75rem;
+            margin-bottom: 16px;
+            color: white;
+        }
+
+        .cta-button {
+            background: white;
+            color: var(--primary-blue);
+            border: none;
+            padding: 16px 32px;
+            border-radius: var(--border-radius);
+            font-size: 1.125rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            margin-top: 16px;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        @media (max-width: 768px) {
+            .institutional-header .container {
+                flex-direction: column;
+                gap: 16px;
+                text-align: center;
+            }
+
+            .institutional-nav {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 12px;
+            }
+
+            .header {
+                padding: 48px 24px;
+            }
+
+            .header h1 {
+                font-size: 2rem;
+            }
+
+            .section {
+                padding: 32px 24px;
+            }
+
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .category-list {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="institutional-header">
+        <div class="container">
+            <div class="institutional-logo">
+                <div class="logo-icon">
+                    <i class="fas fa-university"></i>
+                </div>
+                <span>Prototipo de Plataforma para OPS</span>
+            </div>
+            <nav class="institutional-nav">
+                <a href="index.html"><i class="fas fa-home"></i> Inicio</a>
+                <a href="como_usar.html"><i class="fas fa-question-circle"></i> Cómo Usar</a>
+<a href="https://www.paho.org/es/portal-ensayos-clinicos-americas" target="_blank"><i class="fas fa-book"></i> Recursos</a>            </nav>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="header">
+            <h1><i class="fas fa-hospital-alt"></i> Plataforma Regulatoria</h1>
+            <p class="subtitle">Requisitos para Ensayos Clínicos en América</p>
+            <p class="description">
+                Herramienta integral para consultar requisitos regulatorios para la conducción 
+                de ensayos clínicos en países de América Latina y el Caribe
+            </p>
+        </div>
+
+        <section id="que-es" class="section">
+            <h2><i class="fas fa-info-circle"></i> ¿Qué es esta plataforma?</h2>
+            <p>
+                La Plataforma Regulatoria es una herramienta digital centralizada que consolida y organiza 
+                los requisitos regulatorios para la realización de ensayos clínicos en todos los países 
+                de América. Su objetivo es facilitar la planificación, garantizar el cumplimiento normativo 
+                y fomentar la colaboración en investigación clínica en toda la región.
+            </p>
+
+            <div class="highlight-box">
+                <h4><i class="fas fa-exclamation-triangle"></i> Importante: Prototipo de Demostración</h4>
+                <p>
+                    Esta es una versión prototipo con datos de ejemplo. La información mostrada es solo 
+                    para fines demostrativos y debe ser verificada con las autoridades regulatorias 
+                    competentes antes de ser utilizada en proyectos reales.
+                </p>
+            </div>
+
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h4><i class="fas fa-globe-americas"></i> Cobertura Regional</h4>
+                    <p>Información de 33 países de América Latina, el Caribe, Estados Unidos y Canadá.</p>
+                </div>
+                <div class="feature-card">
+                    <h4><i class="fas fa-database"></i> Información Estructurada</h4>
+                    <p>Datos organizados en 10 categorías principales con más de 50 aspectos específicos.</p>
+                </div>
+                <div class="feature-card">
+                    <h4><i class="fas fa-search"></i> Búsqueda Flexible</h4>
+                    <p>Múltiples formas de consultar: por país, por requisito específico o por filtros personalizados.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="como-usar" class="section">
+            <h2><i class="fas fa-user-guide"></i> Cómo Usar la Plataforma</h2>
+            <p>La plataforma ofrece tres formas principales de consultar la información regulatoria:</p>
+
+            <h3>1. Consulta por País</h3>
+            <ul class="step-list">
+                <li>
+                    <h4>Seleccionar País</h4>
+                    <p>Elija el país de interés del menú desplegable que incluye todos los países de América con sus banderas para fácil identificación.</p>
+                </li>
+                <li>
+                    <h4>Visualizar Resultados</h4>
+                    <p>Los resultados se organizan por categorías (Marco Legal, Autorización, Comités de Ética, etc.) en formato desplegable para fácil navegación.</p>
+                </li>
+                <li>
+                    <h4>Explorar Detalles</h4>
+                    <p>Cada requisito incluye respuesta directa, explicación detallada, fuente normativa y fecha de actualización.</p>
+                </li>
+            </ul>
+
+            <h3>2. Comparación por Requisito</h3>
+            <ul class="step-list">
+                <li>
+                    <h4>Seleccionar Categoría</h4>
+                    <p>Elija una de las 10 categorías principales (ej: "Consentimiento Informado").</p>
+                </li>
+                <li>
+                    <h4>Elegir Aspecto Específico</h4>
+                    <p>Seleccione el aspecto específico que desea comparar entre países (ej: "¿Se permite consentimiento electrónico?").</p>
+                </li>
+                <li>
+                    <h4>Ver Comparación</h4>
+                    <p>Obtenga una tabla comparativa mostrando cómo cada país aborda ese requisito específico.</p>
+                </li>
+            </ul>
+
+            <h3>3. Búsqueda Filtrada</h3>
+            <ul class="step-list">
+                <li>
+                    <h4>Seleccionar Criterios</h4>
+                    <p>Marque los requisitos que deben cumplir los países (ej: "Requiere autorización previa" + "Permite consentimiento electrónico").</p>
+                </li>
+                <li>
+                    <h4>Aplicar Filtros</h4>
+                    <p>El sistema mostrará solo los países que cumplen con TODOS los criterios seleccionados.</p>
+                </li>
+                <li>
+                    <h4>Analizar Resultados</h4>
+                    <p>Vea una lista filtrada de países con tarjetas informativas mostrando la agencia regulatoria de cada uno.</p>
+                </li>
+            </ul>
+        </section>
+
+        <section id="categorias" class="section">
+            <h2><i class="fas fa-list-alt"></i> Categorías de Información</h2>
+            <p>La plataforma organiza los requisitos regulatorios en las siguientes categorías principales:</p>
+
+            <div class="category-list">
+                <div class="category-item">
+                    <h5>Marco Legal y Normativo General</h5>
+                    <p>Autoridades competentes, normativas aplicables, adhesión a GCP-ICH, sanciones</p>
+                </div>
+                <div class="category-item">
+                    <h5>Autorización y Permisos</h5>
+                    <p>Procesos de solicitud, documentos requeridos, tiempos de evaluación</p>
+                </div>
+                <div class="category-item">
+                    <h5>Comités de Ética</h5>
+                    <p>Obligatoriedad, sistemas centralizados vs descentralizados, criterios de evaluación</p>
+                </div>
+                <div class="category-item">
+                    <h5>Consentimiento Informado</h5>
+                    <p>Requisitos mínimos, consentimiento electrónico, poblaciones vulnerables</p>
+                </div>
+                <div class="category-item">
+                    <h5>Documentación del Protocolo</h5>
+                    <p>Elementos requeridos, traducción de documentos, formatos estandarizados</p>
+                </div>
+                <div class="category-item">
+                    <h5>Productos en Investigación</h5>
+                    <p>Importación, autorización por lotes, documentación CMC, etiquetado</p>
+                </div>
+                <div class="category-item">
+                    <h5>Investigadores y Sitios</h5>
+                    <p>Calificaciones requeridas, registro de investigadores, requisitos de instalaciones</p>
+                </div>
+                <div class="category-item">
+                    <h5>Monitoreo y Farmacovigilancia</h5>
+                    <p>Reporte de eventos adversos, sistemas de farmacovigilancia, registros</p>
+                </div>
+                <div class="category-item">
+                    <h5>Aspectos Financieros</h5>
+                    <p>Tasas regulatorias, exenciones académicas, seguros, incentivos fiscales</p>
+                </div>
+                <div class="category-item">
+                    <h5>Finalización y Resultados</h5>
+                    <p>Reportes finales, publicación de resultados, conservación de documentos</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="quien-puede-usar" class="section">
+            <h2><i class="fas fa-users"></i> ¿Quién Puede Usar Esta Plataforma?</h2>
+            
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h4><i class="fas fa-user-md"></i> Investigadores Clínicos</h4>
+                    <p>Para planificar estudios multinacionales y asegurar el cumplimiento normativo desde la fase de diseño.</p>
+                </div>
+                <div class="feature-card">
+                    <h4><i class="fas fa-building"></i> Patrocinadores</h4>
+                    <p>Industria farmacéutica y biotecnológica que necesita información regulatoria para la selección de países y estrategia de desarrollo.</p>
+                </div>
+                <div class="feature-card">
+                    <h4><i class="fas fa-handshake"></i> Organizaciones CRO</h4>
+                    <p>Organizaciones de Investigación por Contrato que gestionan estudios clínicos en múltiples jurisdicciones.</p>
+                </div>
+                <div class="feature-card">
+                    <h4><i class="fas fa-graduation-cap"></i> Instituciones Académicas</h4>
+                    <p>Universidades y centros de investigación que realizan estudios investigador-iniciados.</p>
+                </div>
+                <div class="feature-card">
+                    <h4><i class="fas fa-balance-scale"></i> Consultores Regulatorios</h4>
+                    <p>Profesionales que asesoran sobre requisitos regulatorios y estrategias de desarrollo.</p>
+                </div>
+                <div class="feature-card">
+                    <h4><i class="fas fa-shield-alt"></i> Autoridades Regulatorias</h4>
+                    <p>Para comparar marcos regulatorios y promover la armonización en la región.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="limitaciones" class="section">
+            <h2><i class="fas fa-exclamation-triangle"></i> Limitaciones y Descargos</h2>
+            
+            <div class="highlight-box">
+                <h4><i class="fas fa-info-circle"></i> Información Importante</h4>
+                <p>
+                    <strong>Esta es una versión prototipo</strong> creada para demostrar la funcionalidad y utilidad 
+                    de la plataforma propuesta. Los datos mostrados son ejemplos y no deben ser utilizados para 
+                    tomar decisiones regulatorias reales.
+                </p>
+            </div>
+
+            <ul class="step-list">
+                <li>
+                    <h4>Verificación Requerida</h4>
+                    <p>Toda información debe ser verificada directamente con las autoridades regulatorias competentes antes de su uso en proyectos reales.</p>
+                </li>
+                <li>
+                    <h4>Actualización Constante</h4>
+                    <p>Los requisitos regulatorios cambian frecuentemente. Una versión completa incluiría un sistema de actualización periódica.</p>
+                </li>
+                <li>
+                    <h4>Consulta Profesional</h4>
+                    <p>Esta herramienta no reemplaza el asesoramiento profesional de consultores regulatorios experimentados.</p>
+                </li>
+                <li>
+                    <h4>Variabilidad Regional</h4>
+                    <p>Pueden existir diferencias entre regiones o provincias dentro de un mismo país que no están reflejadas en esta versión.</p>
+                </li>
+            </ul>
+        </section>
+
+        <div class="cta-section">
+            <h3>¿Listo para Explorar la Plataforma?</h3>
+            <p>Pruebe las diferentes funcionalidades de consulta y descubra cómo esta herramienta puede facilitar la planificación de sus ensayos clínicos en América.</p>
+            <a href="index.html" class="cta-button">
+                <i class="fas fa-rocket"></i>
+                Acceder a la Plataforma
+            </a>
+        </div>
+    </div>
+</body>
+</html>

@@ -375,6 +375,33 @@
                 grid-template-columns: 1fr;
             }
         }
+        .site-footer {
+    background-color: var(--neutral-100);
+    color: var(--neutral-600);
+    text-align: center;
+    padding: 32px 24px;
+    margin-top: 48px;
+    border-top: 2px solid var(--neutral-200);
+    font-size: 0.9rem;
+    line-height: 1.7;
+}
+
+.site-footer .container {
+    max-width: 800px;
+}
+
+.site-footer p {
+    margin-bottom: 8px;
+}
+
+.site-footer p:last-child {
+    margin-bottom: 0;
+}
+
+.site-footer strong {
+    color: var(--neutral-800);
+    font-weight: 600;
+}
     </style>
 </head>
 <body>
@@ -609,5 +636,16 @@
             </a>
         </div>
     </div>
+    <footer class="site-footer">
+        <div class="container">
+            <p>
+                <strong>Este sitio es un prototipo de prueba.</strong>
+            </p>
+            <p>
+                Fue creado por Adriel Roitman únicamente para mostrar la funcionalidad de la plataforma proyectada.
+                La información presentada es ficticia y no debe ser utilizada con fines regulatorios reales.
+            </p>
+        </div>
+    </footer>
 </body>
 </html>
